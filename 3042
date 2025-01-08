@@ -1,0 +1,22 @@
+#include <vector>
+#include <string>
+using namespace std;
+
+class Solution {
+public:
+    int countPrefixSuffixPairs(vector<string>& words) {
+        int count = 0;
+        int n = words.size();
+        for (int i = 0; i < n; ++i) {
+            for (int j = i + 1; j < n; ++j) {
+                const string& prefix = words[i];
+                const string& suffix = words[j];
+                if (suffix.substr(0, prefix.size()) == prefix && 
+                    suffix.substr(suffix.size() - prefix.size()) == prefix) {
+                    ++count;
+                }
+            }
+        }
+        return count;
+    }
+};
