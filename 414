@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        set<int> arr(nums.begin(), nums.end()); 
+        vector<int> brr(arr.begin(), arr.end());
+        sort(brr.rbegin(), brr.rend()); 
+        
+        if (brr.size() < 3) {
+            return brr[0]; 
+        } else {
+            return brr[2];
+        }
+    }
+};

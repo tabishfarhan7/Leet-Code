@@ -1,0 +1,4 @@
+*.cpp linguist-detectable=true
+*.h linguist-detectable=true
+*.c linguist-detectable=true
+* linguist-vendored
