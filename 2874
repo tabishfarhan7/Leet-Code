@@ -1,25 +1,17 @@
-long long maximumTripletValue(vector<int>& nums) {
-    int n = nums.size();
-    if (n < 3) return 0;
+class Solution {
+ public:
+  // Same as 2873. Maximum Value of an Ordered Triplet I
+  long long maximumTripletValue(vector<int>& nums) {
+    long ans = 0;
+    int maxDiff = 0;  // max(nums[i] - nums[j])
+    int maxNum = 0;   // max(nums[i])
 
-    long long maxVal = 0;
-    int maxLeft = nums[0];
-    set<int> suffix;
-
-    for (int k = 2; k < n; k++) {
-        suffix.insert(nums[k]);
+    for (const int num : nums) {
+      ans = max(ans, static_cast<long>(maxDiff) * num);  // num := nums[k]
+      maxDiff = max(maxDiff, maxNum - num);              // num := nums[j]
+      maxNum = max(maxNum, num);                         // num := nums[i]
     }
 
-    for (int j = 1; j < n - 1; j++) {
-        suffix.erase(nums[j + 1]);
-
-        if (!suffix.empty()) {
-            int maxRight = *prev(suffix.end());
-            maxVal = max(maxVal, (long long)(maxLeft - nums[j]) * maxRight);
-        }
-
-        maxLeft = max(maxLeft, nums[j]);
-    }
-
-    return maxVal;
-}
+    return ans;
+  }
+};
