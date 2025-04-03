@@ -1,0 +1,25 @@
+long long maximumTripletValue(vector<int>& nums) {
+    int n = nums.size();
+    if (n < 3) return 0;
+
+    long long maxVal = 0;
+    int maxLeft = nums[0];
+    set<int> suffix;
+
+    for (int k = 2; k < n; k++) {
+        suffix.insert(nums[k]);
+    }
+
+    for (int j = 1; j < n - 1; j++) {
+        suffix.erase(nums[j + 1]);
+
+        if (!suffix.empty()) {
+            int maxRight = *prev(suffix.end());
+            maxVal = max(maxVal, (long long)(maxLeft - nums[j]) * maxRight);
+        }
+
+        maxLeft = max(maxLeft, nums[j]);
+    }
+
+    return maxVal;
+}
