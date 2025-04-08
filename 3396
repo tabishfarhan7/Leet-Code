@@ -1,0 +1,24 @@
+class Solution {
+    private:
+    bool hasDuplicates(vector<int>& nums) {
+    for (int i = 0; i < nums.size(); ++i) {
+        for (int j = i + 1; j < nums.size(); ++j) {
+            if (nums[i] == nums[j]) return true;
+        }
+    }
+    return false;
+}
+public:
+    int minimumOperations(vector<int>& nums) {
+      int ops = 0;
+
+    while (hasDuplicates(nums)) {
+
+        int removeCount = min(3, (int)nums.size());
+        nums.erase(nums.begin(), nums.begin() + removeCount);
+        ops++;
+    }
+
+    return ops;
+    }
+};
