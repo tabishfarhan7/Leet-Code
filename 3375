@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int k) {
+        unordered_set<int>a;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]<k){
+                return -1;
+
+            }
+            if(nums[i]>k){
+                a.insert(nums[i]);
+            }
+
+        }
+        if(a.empty()){
+            return 0;
+        }
+        return a.size();
+    }
+};
