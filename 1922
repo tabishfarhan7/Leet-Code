@@ -1,0 +1,23 @@
+class Solution {
+public:
+    const int m = 1000000007;
+
+    long long power(long long base, long long exp) {
+        long long result = 1;
+        base %= m;
+        while (exp > 0) {
+            if (exp % 2 == 1)
+                result = (result * base) % m;
+            base = (base * base) % m;
+            exp /= 2;
+        }
+        return result;
+    }
+
+    int countGoodNumbers(long long n) {
+        long long evenPositions = (n + 1) / 2;
+        long long oddPositions = n / 2;        
+        long long goodStrings = (power(5, evenPositions) * power(4, oddPositions)) % m;
+        return (int)goodStrings;
+    }
+};
