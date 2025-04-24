@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int countCompleteSubarrays(vector<int>& nums) {
+        
+      int total = 0;
+    unordered_set<int> totalSet(nums.begin(), nums.end());
+    int totalDistinct = totalSet.size();
+
+    int n = nums.size();
+
+    for (int i = 0; i < n; i++) {
+        unordered_map<int, int> freq;
+        for (int j = i; j < n; j++) {
+            freq[nums[j]]++;
+            if (freq.size() == totalDistinct)
+                total++;
+        }
+    }
+
+    return total;
+}
+};
