@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int findLucky(vector<int>& arr) {
+        sort(arr.begin(), arr.end(), greater<int>());
+        int count = 1;
+
+        for (int i = 0; i < arr.size(); i++) {
+         
+            while (i + 1 < arr.size() && arr[i] == arr[i + 1]) {
+                count++;
+                i++;
+            }
+            if (count == arr[i]) {
+                return arr[i];
+            }
+
+            count = 1;
+        }
+
+        return -1;
+    }
+};
