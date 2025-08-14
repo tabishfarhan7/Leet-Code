@@ -1,0 +1,17 @@
+class Solution {
+public:
+    string largestGoodInteger(string num) {
+        string maxi = "";
+        int n = num.size();
+        
+        for (int i = 0; i <= n - 3; i++) {
+            string window = num.substr(i, 3);
+            if (window[0] == window[1] && window[1] == window[2]) {
+                if (maxi.empty() || window > maxi) {
+                    maxi = window;
+                }
+            }
+        }
+        return maxi;
+    }
+};
