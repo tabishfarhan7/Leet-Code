@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> minBitwiseArray(vector<int>& nums) {
+        vector<int> ans;
+        for (int num : nums) {
+            if (num == 2) {
+                ans.push_back(-1);
+                continue;
+            }
+            bool found = false;
+            for (int j = 1; j < 32; j++) {
+                if ((num & (1 << j)) == 0) {
+                    int x = num ^ (1 << (j - 1));
+                    ans.push_back(x);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+                ans.push_back(-1);
+        }
+        return ans;
+    }
+};
