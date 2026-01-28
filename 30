@@ -1,0 +1,43 @@
+class Solution {
+public:
+    vector<int> findSubstring(string s, vector<string>& words) {
+        vector<int> res;
+        if (words.empty()) return res;
+        int n = s.size();
+        int m = words.size();
+        int len = words[0].size();
+        int total = m * len;
+        unordered_map<string, int> freq;
+        for (auto &w : words) freq[w]++;
+        for (int i = 0; i < len; i++) {
+            unordered_map<string, int> window;
+            int count = 0;
+            int l = i;
+            for (int r = i; r + len <= n; r += len) {
+                string word = s.substr(r, len);
+                if (freq.count(word)) {
+                    window[word]++;
+                    count++;
+                    while (window[word] > freq[word]) {
+                        string left = s.substr(l, len);
+                        window[left]--;
+                        count--;
+                        l += len;
+                    }
+                    if (count == m) {
+                        res.push_back(l);
+                        string left = s.substr(l, len);
+                        window[left]--;
+                        count--;
+                        l += len;
+                    }
+                } else {
+                    window.clear();
+                    count = 0;
+                    l = r + len;
+                }
+            }
+        }
+        return res;
+    }
+};
