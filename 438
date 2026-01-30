@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        vector<int> res;
+        int n = p.size();
+        if (s.size() < n) return res;
+        vector<int> freq_p(256, 0), winmap(256, 0);
+        for (char c : p) freq_p[c]++;
+        int l = 0;
+        for (int r = 0; r < s.size(); r++) {
+            winmap[s[r]]++;
+            if (r - l + 1 > n) {
+                winmap[s[l]]--;
+                l++;
+            }
+            if (r - l + 1 == n) {
+                if (winmap == freq_p)
+                    res.push_back(l);
+            }
+        }
+        return res;
+    }
+};
