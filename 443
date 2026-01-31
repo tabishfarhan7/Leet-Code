@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+        int n = chars.size();
+        vector<char> ans;
+        int count = 1;
+        for (int i = 0; i < n; i++) {
+            if (i < n - 1 && chars[i] == chars[i + 1]) {
+                count++;
+            } else {
+                ans.push_back(chars[i]);
+                if (count > 1) {
+                    string c = to_string(count);
+                    for (char ch : c) {
+                        ans.push_back(ch);
+                    }
+                }
+                count = 1;
+            }
+        }
+        chars = ans;
+        return ans.size();
+    }
+};
