@@ -1,0 +1,52 @@
+class Solution {
+private:
+    long long cnt = 0;
+    int lo, hi;
+    void merge(vector<long long>& arr, int low, int mid, int high) {
+        vector<long long> temp;
+        int i = low, j = mid + 1;
+        while (i <= mid && j <= high) {
+            if (arr[i] <= arr[j])
+                temp.push_back(arr[i++]);
+            else
+                temp.push_back(arr[j++]);
+        }
+        while (i <= mid) temp.push_back(arr[i++]);
+        while (j <= high) temp.push_back(arr[j++]);
+        for (int k = low; k <= high; k++)
+            arr[k] = temp[k - low];
+    }
+
+    void countPairs(vector<long long>& arr, int low, int mid, int high) {
+        int left = mid + 1, right = mid + 1;
+        for (int i = low; i <= mid; i++) {
+            while (left <= high && arr[left] - arr[i] < lo)
+                left++;
+            while (right <= high && arr[right] - arr[i] <= hi)
+                right++;
+            cnt += (right - left);
+        }
+    }
+
+    void mergeSort(vector<long long>& arr, int low, int high) {
+        if (low >= high) return;
+
+        int mid = low + (high - low) / 2;
+        mergeSort(arr, low, mid);
+        mergeSort(arr, mid + 1, high);
+        countPairs(arr, low, mid, high);
+        merge(arr, low, mid, high);
+    }
+    public:
+    int countRangeSum(vector<int>& nums, int lower, int upper) {
+        lo = lower;
+        hi = upper;
+        cnt = 0;
+        int n = nums.size();
+        vector<long long> prefix(n + 1, 0);
+        for (int i = 0; i < n; i++)
+            prefix[i + 1] = prefix[i] + nums[i];
+        mergeSort(prefix, 0, n);
+        return cnt;
+    }
+};
