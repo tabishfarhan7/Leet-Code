@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool hasAllCodes(string bits, int windowSize) {
+        int patternsLeft = 1 << windowSize;
+        vector<int> visited(patternsLeft, 0);
+
+        int rollingVal = 0;
+        int limitMask = (1 << windowSize) - 1;
+
+        for (int idx = 0; idx < bits.size(); idx++) {
+            rollingVal = ((rollingVal << 1) & limitMask) | (bits[idx] - '0');
+
+            if (idx >= windowSize - 1 && visited[rollingVal] == 0) {
+                visited[rollingVal] = 1;
+                patternsLeft--;
+                if (patternsLeft == 0) return true;
+            }
+        }
+        return false;
+    }
+};
